@@ -1,0 +1,47 @@
+openapi: 3.0.3
+info:
+  title: enum-null-safety-repro
+  version: 1.0.0
+paths:
+  /widgets:
+    post:
+      operationId: createWidget
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Widget'
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Widget'
+components:
+  schemas:
+    Status:
+      type: string
+      enum: [ACTIVE, INACTIVE]
+    Widget:
+      type: object
+      required:
+        - id
+        - requiredColor
+      properties:
+        id:
+          type: string
+        requiredColor:
+          type: string
+          enum: [RED, GREEN, BLUE]
+        optionalColor:
+          type: string
+          enum: [RED, GREEN, BLUE]
+        optionalStatus:
+          $ref: '#/components/schemas/Status'
+        tags:
+          type: array
+          items:
+            type: string
+            enum: [A, B, C]
